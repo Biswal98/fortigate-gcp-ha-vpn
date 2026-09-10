@@ -1,0 +1,10 @@
+Two BGP sessions are established between the FortiGate and GCP Cloud Router.
+
+GCP Cloud Router
+       │
+       ├── BGP Session 1 ── IPsec Tunnel 1 ── ISP1 ── FortiGate
+       │
+       └── BGP Session 2 ── IPsec Tunnel 2 ── ISP2 ── FortiGate
+
+The VPN tunnel interfaces use GCP-assigned link-local addresses in the
+169.254.X.X/30 range.
