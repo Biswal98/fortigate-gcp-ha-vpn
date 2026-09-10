@@ -1,0 +1,11 @@
+Component -	Purpose
+GCP VPC	Cloud-side network
+Cloud HA VPN	- Highly available VPN termination
+Cloud Router	- BGP route exchange
+External Peer VPN Gateway	- Represents the FortiGate
+FortiGate	- On-premises VPN and security gateway
+ISP1	- Primary VPN transport
+ISP2	- Redundant VPN transport
+IPsec Tunnel 1 -	ISP1 VPN path
+IPsec Tunnel 2 -	ISP2 VPN path
+BGP	- Dynamic routing
