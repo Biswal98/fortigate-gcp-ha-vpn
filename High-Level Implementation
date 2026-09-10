@@ -1,0 +1,10 @@
+Configure GCP VPC and Cloud HA VPN.
+Configure Cloud Router and BGP.
+Configure the external peer VPN gateway for the two FortiGate ISP endpoints.
+Configure two route-based IPsec tunnels on FortiGate.
+Configure tunnel interface addressing.
+Configure two BGP neighbors on FortiGate.
+Scope LAN route advertisements.
+Configure firewall policies for VPN traffic.
+Validate routing and connectivity.
+Test ISP failover and recovery.
