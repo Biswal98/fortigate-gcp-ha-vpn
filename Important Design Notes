@@ -1,0 +1,17 @@
+Route-Based IPsec
+
+Tunnel interface IP addressing must be explicitly configured for the
+route-based VPN interfaces.
+
+Phase 2 Selectors
+
+BGP-routed tunnels use:
+
+Local  Selector:  0.0.0.0/0
+Remote Selector:  0.0.0.0/0
+BGP Route Advertisement
+
+Only the required LAN prefixes should be advertised toward GCP.
+
+Avoid unrestricted redistribution of connected routes because this can
+advertise WAN, transit, management, or other infrastructure networks.
