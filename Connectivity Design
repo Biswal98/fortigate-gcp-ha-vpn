@@ -1,0 +1,17 @@
+                    GCP
+                     │
+                 GCP VPC
+                     │
+             Cloud HA VPN Gateway
+                ┌────┴────┐
+                │         │
+             Tunnel 1  Tunnel 2
+                │         │
+              ISP1       ISP2
+                │         │
+                └────┬────┘
+                     │
+                 FortiGate
+                     │
+                  On-Prem
+                    LAN
