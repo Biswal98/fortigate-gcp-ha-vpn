@@ -1,0 +1,10 @@
+ IPsec Tunnel 1 established
+ IPsec Tunnel 2 established
+ BGP Session 1 Established
+ BGP Session 2 Established
+ GCP routes learned by FortiGate
+ LAN routes advertised to GCP
+ Bidirectional connectivity tested
+ ISP1 failover tested
+ ISP2 path validated
+ Recovery/reversion tested
