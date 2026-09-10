@@ -1,0 +1,105 @@
+Production Architecture / Traffic Flow :-
+
+                         ┌──────────────────────────┐
+                         │        GCP VPC           │
+                         │                          │
+                         │   GCP Workloads/Subnets  │
+                         └────────────┬─────────────┘
+                                      │
+                                      │
+                    ┌─────────────────▼─────────────────┐
+                    │       Cloud HA VPN Gateway        │
+                    │                                   │
+                    │     Interface 0    Interface 1    │
+                    └──────────┬─────────────┬──────────┘
+                               │             │
+                         IPsec │             │ IPsec
+                         Tunnel│1            │ Tunnel 2
+                               │             │
+                        ┌──────▼───┐     ┌───▼──────┐
+                        │   ISP 1  │     │  ISP 2   │
+                        │  WAN 1   │     │  WAN 2   │
+                        └──────┬───┘     └───┬──────┘
+                               │             │
+                               └──────┬──────┘
+                                      │
+                           ┌──────────▼──────────┐
+                           │      FortiGate       │
+                           │    FortiOS 7.4.11    │
+                           │                      │
+                           │  IPsec + BGP + FW    │
+                           └──────────┬───────────┘
+                                      │
+                                      │
+                           ┌──────────▼───────────┐
+                           │      On-Prem LAN      │
+                           │                       │
+                           │   Users / Servers     │
+                           └───────────────────────┘
+
+BGP Control-Plane Diagram :-
+
+              GOOGLE CLOUD
+        ┌───────────────────────┐
+        │      Cloud Router     │
+        │                       │
+        │  BGP Interface 0      │
+        │  169.254.X.X/30       │
+        │          │            │
+        │  BGP Interface 1      │
+        │  169.254.X.X/30       │
+        └───────┬───────┬───────┘
+                │       │
+             BGP│       │BGP
+                │       │
+        ┌───────▼───┐ ┌─▼─────────┐
+        │ Tunnel 1  │ │ Tunnel 2  │
+        │   ISP1    │ │   ISP2    │
+        └───────┬───┘ └─┬─────────┘
+                │       │
+                ▼       ▼
+        ┌───────────────────────┐
+        │       FortiGate       │
+        │                       │
+        │ BGP Neighbor 1        │
+        │ 169.254.X.X           │
+        │                       │
+        │ BGP Neighbor 2        │
+        │ 169.254.X.X           │
+        └───────────┬───────────┘
+                    │
+                    ▼
+              LAN Prefixes
+
+Failover / HA Diagram :-
+
+                         GCP VPC
+                            │
+                            ▼
+                   ┌────────────────┐
+                   │   HA VPN GW    │
+                   └───────┬────────┘
+                           / \
+                          /   \
+                         /     \
+                    Tunnel 1  Tunnel 2
+                       │          │
+                    ISP1        ISP2
+                       │          │
+                       └────┬─────┘
+                            │
+                     ┌──────▼──────┐
+                     │  FortiGate  │
+                     └──────┬──────┘
+                            │
+                           LAN
+
+
+        NORMAL
+        ISP1 ───────────────► ACTIVE PATH
+        ISP2 ───────────────► REDUNDANT PATH
+
+
+        ISP1 FAILURE
+        ISP1 ─────── X
+        ISP2 ───────────────► AVAILABLE VPN PATH
